@@ -1,0 +1,18 @@
+= Hello World !
+:layout: article
+:author: cedric thomas
+:lang: fr
+
+Hello world en C ANSI 
+[source,numbered,c]
+----
+#include <stdio.h>
+#define string char*
+
+int main(int argc, string argv[]) {
+    puts("Hello world !");
+    return 0;
+}
+----
+
+🤩 Incroyable, n'est pas ?!
