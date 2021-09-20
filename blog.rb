@@ -1,8 +1,22 @@
-require('fileutils')
+# blog.rb is a framework designed to be stupidly simple
+# it's aimed to distributed your articles in a asciidoc
+# format into html files with some other features like
+# partials, layouts ...
+# MIT licence <cedric.thomas>
+require('fileutils') 
 require('asciidoctor')
 require('erb')
 
+# debug only
+require('pp')
+
+# loding config.rb
+# where we store the default dom props
 load('config.rb')
+
+
+def get_articles() 
+end
 
 def partial(p)
     p_path = "partials/#{p}.erb"
@@ -52,8 +66,10 @@ pages.each do |page|
     if(File.extname(page) == ".adoc")
             
         adoc = Asciidoctor.load_file(page)
-        
-        #puts(adoc.attributes)
+      
+        pp(adoc) 
+        puts("------------------------") 
+        pp(adoc.attributes)
 
         dom[:layout] = adoc.attributes["layout"]
         dom[:lang]   = adoc.attributes["lang"]
@@ -83,3 +99,6 @@ pages.each do |page|
 
     end
 end
+
+# copying public content to dist
+FileUtils.cp_r("public", "dist/")
