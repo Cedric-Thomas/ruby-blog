@@ -1,8 +1,9 @@
-% dom[:layout] = "default"
-% dom[:title]  = "th3 sUpR Index !"
+% @dom[:layout] = "default"
+% @dom[:title]  = "th3 sUpR Index !"
 <h1>This is my blog !</h1>
-<% Dir.glob("pages/articles/**/*").each do |article| %>
+<% Dir.glob("pages/articles/**/*.adoc").each do |article| %>
 <a href="<%= article.sub("pages/", "").sub("adoc","html") %>">
 <%= File.basename(article) %>
 </a>
+<i><%= Page.new(article).dom[:author] %></i>
 <% end %>

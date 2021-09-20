@@ -3,7 +3,8 @@
 # format into html files with some other features like
 # partials, layouts ...
 # MIT licence <cedric.thomas>
-require('fileutils') 
+
+require('fileutils')
 require('asciidoctor')
 require('erb')
 
@@ -15,89 +16,88 @@ require('pp')
 load('config.rb')
 
 
-def get_articles() 
+def __render(path, context)
+  if(File.file?(path))
+    return ERB.new(
+      File.read(path),
+      trim_mode: "%<>"
+    ).result(context)
+  end
 end
 
 def partial(p)
-    p_path = "partials/#{p}.erb"
-    if(File.file?(p_path))
-        return ERB.new(
-            File.read(p_path),
-            trim_mode: "%<>"
-        ).result(binding)
-    end
+  p_path = "partials/#{p}.erb"
+  return __render(p_path, binding)
 end
 
-def apply_layout(content, dom)
-    
-    @content = content
+class Page
+  def initialize(path)
+    @path     = path
+    @dom      = Dom
+    @content  = nil
+    @rendered = nil
 
-    if(dom[:layout].nil? or dom[:layout].empty?)
-        dom[:layout] = "default"
-    end
+    @type    = File.extname(@path)
+  end
 
-    l_path = "layouts/#{dom[:layout]}.erb"
-
-    if(File.file?(l_path))
-        dom[:layout] = nil
-
-        @content = ERB.new(
-            File.read(l_path),
-            trim_mode: "%<>"
-        ).result(binding)
-
-        if(not dom[:layout].nil?)
-            apply_layout(@content, dom)
+  def content()
+    if(@content.nil?)
+      @content = __render(@path, binding) if (@type == ".erb")
+      if(@type == ".adoc")
+        adoc = Asciidoctor.load_file(@path)
+        # create a banlist with default's asciidoc attributes
+        ban  = Asciidoctor.load("").attributes.keys
+        adoc.attributes.each do |key, val|
+          # if key in banlist then not pushing it
+          @dom[key.to_sym()] = val unless ban.include?(key)
         end
-
-        return @content
-    else
-        puts("err: layout not found")
+        @content = adoc.render()
+      end
     end
+  end
+
+  def dom()
+    if(@content.nil?)
+      self.content()
+    end
+    return @dom
+  end
+
+  def render()
+    if(@rendered.nil?)
+      if(@content.nil?)
+        self.content()
+      end
+
+      @dom[:layout] = "default" if @dom[:layout].empty?
+
+      l_path = "layouts/#{@dom[:layout]}.erb"
+
+      @dom[:layout] = nil
+      @content = __render(l_path, binding)
+
+      self.render() unless @dom[:layout].nil?
+
+      @rendered = @content
+
+    end
+    return @rendered
+  end
+
+  def write(path = "")
+    if(path.empty?)
+      path = @path.sub("pages", "dist").sub(/\.\w*/, ".html")
+    end
+    FileUtils.mkdir_p(File.dirname(path))
+    File.write(path, self.render())
+  end
 end
 
-pages = Dir.glob("pages/**/*")
+pages = Dir.glob("pages/**/*.{erb,adoc}")
 
-pages.each do |page|
-
-    dom     = Dom
-    content = nil
-
-    if(File.extname(page) == ".adoc")
-            
-        adoc = Asciidoctor.load_file(page)
-      
-        pp(adoc) 
-        puts("------------------------") 
-        pp(adoc.attributes)
-
-        dom[:layout] = adoc.attributes["layout"]
-        dom[:lang]   = adoc.attributes["lang"]
-
-        content = adoc.render()
-
-    end
-
-    if(File.extname(page) == ".erb" or not content.nil? )
-        
-        if(content.nil?)
-            content = ERB.new(
-                File.read(page),
-                trim_mode: "%<>"
-            ).result(binding)
-        end
-
-        d_path = page.sub("pages", "dist").sub(/\.\w*/, ".html")
-        FileUtils.mkdir_p(File.dirname(d_path))
-        File.write(
-            d_path,
-            apply_layout(
-                content,
-                dom
-            )
-        )
-
-    end
+pages.each do |page_path|
+  puts(page_path)
+  Page.new(page_path).write()
 end
 
 # copying public content to dist

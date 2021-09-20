@@ -3,7 +3,7 @@
 :author: cedric thomas
 :lang: fr
 
-Hello world en C ANSI 
+Hello world en C ANSI
 [source,numbered,c]
 ----
 #include <stdio.h>
