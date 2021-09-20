@@ -1,0 +1,6 @@
+= Chicken paradise
+:layout: article
+:author: cedric thomas
+:lang: fr
+
+We are the world we are a chicken !

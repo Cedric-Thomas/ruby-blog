@@ -1,21 +1,14 @@
-# blog.rb is a framework designed to be stupidly simple
-# it's aimed to distributed your articles in a asciidoc
-# format into html files with some other features like
-# partials, layouts ...
 # MIT licence <cedric.thomas>
 
 require('fileutils')
 require('asciidoctor')
 require('erb')
 
-# debug only
-require('pp')
-
 # loding config.rb
 # where we store the default dom props
 load('config.rb')
 
-
+#------------------------------------------------------------------------------#
 def __render(path, context)
   if(File.file?(path))
     return ERB.new(
@@ -25,11 +18,15 @@ def __render(path, context)
   end
 end
 
-def partial(p)
+def partial(p, fobj = nil)
   p_path = "partials/#{p}.erb"
   return __render(p_path, binding)
 end
+#------------------------------------------------------------------------------#
 
+
+
+#------------------------------------------------------------------------------#
 class Page
   def initialize(path)
     @path     = path
@@ -86,12 +83,16 @@ class Page
 
   def write(path = "")
     if(path.empty?)
+      # TODO: create an method to handle that kind of path hacks
       path = @path.sub("pages", "dist").sub(/\.\w*/, ".html")
     end
     FileUtils.mkdir_p(File.dirname(path))
     File.write(path, self.render())
   end
 end
+#------------------------------------------------------------------------------#
+
+# main
 
 pages = Dir.glob("pages/**/*.{erb,adoc}")
 

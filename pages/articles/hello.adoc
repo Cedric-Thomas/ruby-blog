@@ -4,7 +4,7 @@
 :lang: fr
 
 Hello world en C ANSI
-[source,numbered,c]
+[source,numbered]
 ----
 #include <stdio.h>
 #define string char*
