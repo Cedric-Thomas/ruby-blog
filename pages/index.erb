@@ -1,7 +1,14 @@
-% @dom[:layout] = "default"
-% @dom[:title]  = "th3 sUpR Index !"
-<h1>This is my blog !</h1>
+% @dom.title  = "th3 sUpR Index !"
+<!-- site navigation -->
+<header>
+</header>
 % articles = Dir.glob("pages/articles/**/*.adoc")
 % articles.each do |article|
-<%= partial("article_preview", article) %>
+<%= 
+  component(
+    "article_preview", OpenStruct.new({
+      :article_path => article
+    })
+  )
+%>
 % end

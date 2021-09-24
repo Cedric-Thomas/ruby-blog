@@ -1,17 +1,20 @@
-% if (defined?(fobj))
-% ldom = Page.new(fobj).dom()
-<div class="article_preview" style="width: 300px; border: 2px solid green;">
-  <h3><%= ldom[:doctitle] %></h3>
+% if (defined?(_o))
+% # creating problem on the page altering the current dom
+% c = Page.new(_o.article_path).dom()
+<div class="article_preview">
+  <h3><%= c.doctitle %></h3>
   <hr/>
   <p>
-    author: <i><%= ldom[:author] %></i>
+    author: <i><%= c.author %></i>
   </p>
-  <a href="<%= fobj.sub("pages/", "").sub(/\.\w*/, ".html") %>">
+  <!-- targetting on the _o object is so fucking bad ! -->
+  <!-- need to fix -->
+  <a href="<%= _o.article_path.sub("pages/", "").sub(/\.\w*/, ".html") %>">
     [ read more ]
   </a>
 </div>
 % else
-<p style="color=red;">
+<p>
   <b>(article_preview) article not defined !</b>
 </p>
 % end

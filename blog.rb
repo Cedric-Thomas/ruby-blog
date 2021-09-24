@@ -3,6 +3,7 @@
 require('fileutils')
 require('asciidoctor')
 require('erb')
+require('ostruct')
 
 # loding config.rb
 # where we store the default dom props
@@ -18,28 +19,45 @@ def __render(path, context)
   end
 end
 
-def partial(p, fobj = nil)
+def partial(p, _o = nil)
   p_path = "partials/#{p}.erb"
   return __render(p_path, binding)
+end
+
+def component(trgt, data)
+  return partial(trgt, data)
 end
 #------------------------------------------------------------------------------#
 
 
 
 #------------------------------------------------------------------------------#
+module Empty
+  def self.binding
+    super
+  end
+end
+
 class Page
   def initialize(path)
+    # black magic
+    @binding  = binding
+
     @path     = path
     @dom      = Dom
     @content  = nil
     @rendered = nil
 
-    @type    = File.extname(@path)
+    @type     = File.extname(@path)
   end
 
   def content()
-    if(@content.nil?)
-      @content = __render(@path, binding) if (@type == ".erb")
+    if(@content.nil?) 
+      if(@type == ".erb")
+        @content = __render(@path, @binding)
+        return
+      end
+      
       if(@type == ".adoc")
         adoc = Asciidoctor.load_file(@path)
         # create a banlist with default's asciidoc attributes
@@ -54,9 +72,7 @@ class Page
   end
 
   def dom()
-    if(@content.nil?)
-      self.content()
-    end
+    self.content() if @content.nil?
     return @dom
   end
 
@@ -66,14 +82,14 @@ class Page
         self.content()
       end
 
-      @dom[:layout] = "default" if @dom[:layout].empty?
+      @dom.layout = "default" if @dom.layout.empty?
 
-      l_path = "layouts/#{@dom[:layout]}.erb"
+      l_path = "layouts/#{@dom.layout}.erb"
 
-      @dom[:layout] = nil
-      @content = __render(l_path, binding)
+      @dom.layout = nil
+      @content = __render(l_path, @binding)
 
-      self.render() unless @dom[:layout].nil?
+      self.render() unless @dom.layout.nil?
 
       @rendered = @content
 
@@ -97,7 +113,6 @@ end
 pages = Dir.glob("pages/**/*.{erb,adoc}")
 
 pages.each do |page_path|
-  puts(page_path)
   Page.new(page_path).write()
 end
 

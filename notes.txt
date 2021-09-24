@@ -1,0 +1,2 @@
++ components
+les components sont des partials parametriques prenant un vdom en imput
