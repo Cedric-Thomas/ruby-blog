@@ -1,5 +1,4 @@
 % if (defined?(_o))
-% # creating problem on the page altering the current dom
 % c = Page.new(_o.article_path).dom()
 <div class="article_preview">
   <h3><%= c.doctitle %></h3>
@@ -7,9 +6,7 @@
   <p>
     author: <i><%= c.author %></i>
   </p>
-  <!-- targetting on the _o object is so fucking bad ! -->
-  <!-- need to fix -->
-  <a href="<%= _o.article_path.sub("pages/", "").sub(/\.\w*/, ".html") %>">
+  <a href="<%= subdext(["pages",""],".html",c.path) %>">
     [ read more ]
   </a>
 </div>

@@ -1,4 +1,4 @@
-# MIT licence <cedric.thomas>
+# MIT licence <cedric.thomas@protonmail.com>
 
 require('fileutils')
 require('asciidoctor')
@@ -25,26 +25,27 @@ def partial(p, _o = nil)
 end
 
 def component(trgt, data)
-  return partial(trgt, data)
+  return partial(trgt + ".cmpnt", OpenStruct.new(data))
+end
+
+def subdext(arsub, ext, path)
+  new_path = path.sub(arsub[0], arsub[1])
+  new_path.sub!(/\.\w*/, ".html")
+  return new_path
 end
 #------------------------------------------------------------------------------#
 
 
 
 #------------------------------------------------------------------------------#
-module Empty
-  def self.binding
-    super
-  end
-end
-
 class Page
   def initialize(path)
     # black magic
     @binding  = binding
 
     @path     = path
-    @dom      = Dom
+    @dom      = OpenStruct.new(Dom)
+    @dom.path = path # adding path to dom
     @content  = nil
     @rendered = nil
 
@@ -59,7 +60,7 @@ class Page
       end
       
       if(@type == ".adoc")
-        adoc = Asciidoctor.load_file(@path)
+        adoc = Asciidoctor.load_file(@path, safe: "safe")
         # create a banlist with default's asciidoc attributes
         ban  = Asciidoctor.load("").attributes.keys
         adoc.attributes.each do |key, val|
@@ -82,7 +83,7 @@ class Page
         self.content()
       end
 
-      @dom.layout = "default" if @dom.layout.empty?
+      #@dom.layout = "default" if @dom.layout.empty?
 
       l_path = "layouts/#{@dom.layout}.erb"
 
@@ -99,8 +100,7 @@ class Page
 
   def write(path = "")
     if(path.empty?)
-      # TODO: create an method to handle that kind of path hacks
-      path = @path.sub("pages", "dist").sub(/\.\w*/, ".html")
+      path = subdext(["pages","dist"],".html",@path)
     end
     FileUtils.mkdir_p(File.dirname(path))
     File.write(path, self.render())
@@ -117,4 +117,4 @@ pages.each do |page_path|
 end
 
 # copying public content to dist
-FileUtils.cp_r("public", "dist/")
+FileUtils.cp_r("static", "dist/")

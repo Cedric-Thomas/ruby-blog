@@ -1,0 +1,119 @@
+:root {
+  --page-w: 768px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+}
+
+article {
+  max-width: var(--page-w);
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  /*border: 2px solid black;*/
+  border-radius: 0.25rem;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+}
+
+h2 {
+  font-family: serif;
+  font-size: 2rem;
+}
+
+img.banner {
+  width: 100%;
+  height: 28vh;
+  object-fit: cover;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+div.emoji.container {
+  position: relative;
+  max-width: var(--page-w);
+  min-height: 78px;
+  margin: 0 auto;
+  margin-top: -42px;
+}
+
+img.emoji {
+  position: absolute;
+  width: 78px;
+  height: 78px;
+  top: 0px;
+  left: 0px;
+}
+
+header {
+  height: 45px;
+}
+
+
+.attribution {
+  text-align: right;
+}
+
+.literalblock {
+  padding: 0.2rem;
+  margin: 1rem;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.quoteblock blockquote::before{
+  content:"\201c";
+  float:left;
+  font-size:2.75em;
+  font-weight:bold;
+  line-height:0.6em;
+  margin-left:-0.6em;
+}
+
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  display: block;
+  letter-spacing: -.025em;
+  color: rgba(0,0,0,.6);
+}
+
+.admonitionblock>table {
+  border-collapse: separate;
+  border: 0;
+  background: none;
+  width: 100%;
+}
+
+.admonitionblock>table td.icon {
+  text-align: center;
+  width: 80px;
+}
+
+.admonitionblock>table td.content {
+  padding-left: 1.125em;
+  padding-right: 1.25em;
+  border-left: 1px solid #dddddf;
+  word-wrap: anywhere;
+}
+
+.subheader, .admonitionblock td.content>.title, .audioblock>.title, .exampleblock>.title, .imageblock>.title, .listingblock>.title, .literalblock>.title, .stemblock>.title, .openblock>.title, .paragraph>.title, .quoteblock>.title, table.tableblock>.title, .verseblock>.title, .videoblock>.title, .dlist>.title, .olist>.title, .ulist>.title, .qlist>.title, .hdlist>.title {
+  line-height: 1.45;
+  color: #7a2518;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.verseblock {
+  margin: 0 1em 1.25em;
+}
+
+.verseblock pre {
+  font-family: "Open Sans","DejaVu Sans",sans-serif;
+  font-size: 1.15rem;
+  color: rgba(0,0,0,.85);
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+}

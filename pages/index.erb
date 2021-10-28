@@ -1,14 +1,14 @@
-% @dom.title  = "th3 sUpR Index !"
-<!-- site navigation -->
+% @dom.title  = "0xcc bl0g"
 <header>
+  <!-- site navigation -->
 </header>
 % articles = Dir.glob("pages/articles/**/*.adoc")
 % articles.each do |article|
 <%= 
   component(
-    "article_preview", OpenStruct.new({
+    "article_preview", {
       :article_path => article
-    })
+    }
   )
 %>
 % end

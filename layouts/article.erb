@@ -1,4 +1,13 @@
 % @dom.layout = "default"
+<%= partial("nav") %>
+% # banner and emoji
+<img class="banner" src="<%= @dom.img %>" />
+% if not @dom.emoji.nil?
+<div class="emoji container">
+<img class="emoji" src=<%= "#{@dom.emoji_base_url}/emoji_u#{(@dom.emoji).ord.to_s(16)}.svg" %> />
+% # ---
+</div>
+% end
 <article>
     <%= @content %>
 </article>

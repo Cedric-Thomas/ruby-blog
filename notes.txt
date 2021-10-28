@@ -1,2 +1,2 @@
 + components
-les components sont des partials parametriques prenant un vdom en imput
+les components sont des partials parametriques prenant un vdom en input

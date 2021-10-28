@@ -5,26 +5,417 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0xcc blog</title>
-    <link rel="stylesheet" href="public/css/core.css">
+    <link rel="stylesheet" href="/static/css/core.css">
+    <link rel="stylesheet" href="/static/css/pastie.css">
 </head>
 <body>
-    <article>
-    <div class="paragraph">
+    <header>
+<nav>
+xxx
+</nav>
+</header>
+<img class="banner" src="/static/img/helloworld.png" />
+<div class="emoji container">
+<img class="emoji" src=https://rawcdn.githack.com/googlefonts/noto-emoji/e022fd6573782431ac9a65b520376b57511c31cd/svg/emoji_u1f525.svg />
+</div>
+<article>
+    <div class="sect1">
+<h2 id="_hello_world">Hello World !</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit neque
+nulla, id efficitur metus faucibus eget. Nulla eu consequat nulla. Duis vel
+vulputate erat. Morbi ullamcorper fermentum sapien, vel aliquam purus blandit
+eget. Curabitur id molestie massa. Nullam ornare dictum ipsum, ac imperdiet
+sapien laoreet nec.</p>
+</div>
+<div class="paragraph">
 <p>Hello world en C ANSI</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-numbered" data-lang="numbered">#include &lt;stdio.h&gt;
+<pre class="rouge highlight"><code data-lang="c"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="cp">#include &lt;stdio.h&gt;
 #define string char*
-
-int main(int argc, string argv[]) {
-    puts("Hello world !");
-    return 0;
-}</code></pre>
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">string</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">puts</span><span class="p">(</span><span class="s">"Hello world !"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>🤩 Incroyable, n&#8217;est pas ?!</p>
+</div>
+<div id="purpose" class="sidebarblock">
+<div class="content">
+<div class="title">Purpose</div>
+<div class="paragraph">
+<p>This document exercises many of the features of AsciiDoc to test the {library} implementation.</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+If you want the output to look familiar, copy (or link) the AsciiDoc stylesheet, asciidoc.css, to the output directory.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Items marked with TODO are either not yet supported or a work in progress.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="first">First Steps with <a href="http://asciidoc.org">AsciiDoc</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Inline markup</div>
+<ul>
+<li>
+<p>single quotes around a phrase place 'emphasis'</p>
+</li>
+<li>
+<p>astericks around a phrase make the text <strong>bold</strong></p>
+</li>
+<li>
+<p>double astericks around one or more <strong>l</strong>etters in a word make those letters bold</p>
+</li>
+<li>
+<p>double underscore around a <em>sub</em>string in a word emphasize that substring</p>
+</li>
+<li>
+<p>use carrots around characters to make them <sup>super</sup>script</p>
+</li>
+<li>
+<p>use tildes around characters to make them <sub>sub</sub>script</p>
+</li>
+<li>
+<p>to pass through <u>HTML</u> directly, surround the text with triple plus</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>characters can be escaped using a \</p>
+<div class="ulist">
+<ul>
+<li>
+<p>for instance, you can escape a quote inside emphasized text like 'Here's Johnny!'</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>you can safely use reserved XML characters like &lt;, &gt; and &amp;, which are escaped when rendering</p>
+</li>
+<li>
+<p>force a space between inline elements using the {sp} attribute</p>
+</li>
+<li>
+<p>hold text together with an intrinsic non-breaking&#160;space attribute, {nbsp}</p>
+</li>
+<li>
+<p>handle words with unicode characters like in the name Gregory Romé</p>
+</li>
+<li>
+<p>claim your copyright &#169;, registered trademark &#174; or trademark &#8482;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can write text <a href="http://example.com">with inline links</a>, optionally using an explicit <a href="http://example.com">link prefix</a>. In either case, the link can have a <a href="http://example.com?foo=bar&amp;lang=en">query string</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you want to break a line<br>
+just end it in a &#43; sign<br>
+and continue typing on the next line.</p>
+</div>
+<div class="sect2">
+<h3 id="_lists_upon_lists">Lists Upon Lists</h3>
+<div class="ulist">
+<div class="title">Adjacent lists</div>
+<ul>
+<li>
+<p>this list</p>
+</li>
+<li>
+<p>should join</p>
+</li>
+<li>
+<p>to have</p>
+</li>
+<li>
+<p>four items</p>
+</li>
+</ul>
+</div>
+<div id="numbered" class="olist arabic">
+<div class="title">Numbered lists</div>
+<ol class="arabic">
+<li>
+<p>These items</p>
+</li>
+<li>
+<p>will be auto-numbered</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>and can be nested</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A numbered list can nest</p>
+<div class="ulist">
+<ul>
+<li>
+<p>unordered</p>
+</li>
+<li>
+<p>list</p>
+</li>
+<li>
+<p>items</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Statement</div>
+<p>I swear I left it in 'Guy's' car. Let's go look for it.</p>
+</div>
+<div id="defs" class="dlist">
+<dl>
+<dt class="hdlist1">term</dt>
+<dd>
+<p>  definition
+line two</p>
+</dd>
+<dt class="hdlist1"><a id="another_term"></a>another term</dt>
+<dd>
+<p>another definition, which can be literal (indented) or regular paragraph</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This should be a standalone paragraph, not grabbed by the definition list.</p>
+</div>
+<div id="nested" class="ulist">
+<ul>
+<li>
+<p>first level
+written on two lines</p>
+</li>
+<li>
+<p>first level</p>
+<div class="literalblock">
+<div class="content">
+<pre>with this literal text</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>second level</p>
+<div class="ulist">
+<ul>
+<li>
+<p>third level</p>
+<div class="ulist">
+<ul>
+<li>
+<p>fourth level</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>back to<br>
+first level</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s make a horizontal rule&#8230;&#8203;</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>then take a break.</p>
+</div>
+<div class="listingblock">
+<div class="title">Asciidoctor usage example, should contain 3 lines</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">doc</span> <span class="o">=</span> <span class="no">Asciidoctor</span><span class="o">::</span><span class="no">Document</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"*This* is it!"</span><span class="p">,</span> <span class="ss">:header_footer</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">doc</span><span class="p">.</span><span class="nf">render</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s what it outputs (using the built-in templates):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;div class="paragraph"&gt;
+  &lt;p&gt;&lt;strong&gt;This&lt;/strong&gt; is it!&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quotes">``Quotes''</h3>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>AsciiDoc is 'so' <strong>powerful</strong>!</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>This verse comes to mind.</p>
+</div>
+<div class="verseblock">
+<pre class="content">La la la</pre>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s another quote:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Sir Arthur Conan Doyle<br>
+<cite>The Adventures of Sherlock Holmes</cite>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="literally">Getting Literal</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>Want to get literal? Just prefix a line with a space (just one will do).</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>I'll join that party, too.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We forgot to mention in <a href="#numbered">Numbered lists</a> that you can change the numbering style.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>first item (yeah!)</p>
+</li>
+<li>
+<p>second item, looking <code>so mono</code></p>
+</li>
+<li>
+<p>third item, mono it is!</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wrapup">Wrap-up</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+AsciiDoc is quite cool, you should try it!
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="title">Info</div>
+<div class="paragraph">
+<p>Go to this URL to learn more about it:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://asciidoc.org" class="bare">http://asciidoc.org</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Or you could return to the <a href="#first">First Steps</a> or <a href="#purpose">Purpose</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a reference to the definition of <a href="#another_term">another term</a>, in case you forgot it.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+One more thing. Happy documenting!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a id="google"></a>When all else fails, head over to <a href="http://google.com" class="bare">http://google.com</a>.</p>
+</div>
+</div>
 </div>
 </article>
 
